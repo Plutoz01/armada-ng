@@ -1,17 +1,19 @@
+$border-color: #888;
+
 .ar-ex-list {
 	user-select: none;
 
 	/deep/ .ar-list {
-		border: 1px #888 solid;
+		border: 1px $border-color solid;
 
 		.ar-list-item {
 			&:not(:last-child) {
-				border-bottom: 1px #888 solid;
+				border-bottom: 1px $border-color solid;
 			}
 
 			padding: 5px 10px;
 			background-color: white;
-			box-shadow: 2px 2px 2px #888;
+			box-shadow: 2px 2px 2px $border-color;
 			cursor: pointer;
 
 		}
@@ -25,7 +27,7 @@
 			padding: 5px 10px;
 			background-color: rgba( 255, 255, 255, 0.7 );
 			font-weight: normal;
-			border: 1px solid #aaa;
+			border: 1px solid #ccc;
 			margin: 5px 0;
 		}
 	}
