@@ -8,7 +8,7 @@
 		<i class="fa fa-angle-left" aria-hidden="true"></i>
 	</span>
 
-	<div class="ar-paginator-button" *ngFor="let pageNumber of pageRange" [ngClass]="{ selected: pageNumber === actual }"
+	<div class="ar-paginator-button" *ngFor="let pageNumber of pageRange" [ngClass]="{ selected: pageNumber === actualPage }"
 		  (click)="onNumberClick( pageNumber )"  >
 		{{ pageNumber + 1 }}
 	</div>

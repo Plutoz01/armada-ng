@@ -1,0 +1,63 @@
+$border-color: #888;
+
+.ar-ex-pageable-list {
+	user-select: none;
+	box-shadow: 2px 2px 2px $border-color;
+	background-color: #ccc;
+
+	/deep/ .ar-pageable-list {
+		border: 1px $border-color solid;
+
+		.ar-list {
+			.ar-list-item {
+				&:not(:last-child) {
+					border-bottom: 1px $border-color solid;
+				}
+
+				padding: 5px 10px;
+				background-color: white;
+				box-shadow: 2px 2px 2px $border-color;
+				cursor: pointer;
+
+			}
+
+			.selected {
+				font-weight: bold;
+				background: #fffacb;
+			}
+
+			.ar-list-item-opened {
+				padding: 5px 10px;
+				background-color: rgba( 255, 255, 255, 0.7 );
+				font-weight: normal;
+				border: 1px solid #ccc;
+				margin: 5px 0;
+			}
+		}
+
+		/deep/ .ar-paginator-button {
+			border: 1px solid #aaa;
+			border-radius: 3px;
+			margin: 0 2px;
+			background-color: #eee;
+
+			&.selected {
+				background-color: #2c81f1;
+				color: #eee;
+			}
+
+			&.disabled {
+				color: #aaa;
+			}
+		}
+	}
+
+	.emptyStock {
+		color: #be0000;
+		font-weight: bold;
+	}
+}
+
+
+
+

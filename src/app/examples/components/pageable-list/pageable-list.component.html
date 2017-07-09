@@ -1,0 +1,25 @@
+<div class="ar-ex-pageable-list">
+	<ar-pageable-list [items]="items"
+					  [listItemTemplateRef]="itemTpl"
+					  [totalPage]="totalPages"
+					  [totalItems]="allItems.length"
+					  [actualPage]="pageNumber"
+					  [pageRangeWidth]="3"
+					  [itemsPerPage]="itemsPerPage"
+					  (itemsPerPageChanged)="onItemsPerPageChanged( $event )"
+					  (pageChanged)="onPageChanged( $event )"
+
+	></ar-pageable-list>
+
+	<ng-template #itemTpl let-item let-isSelected="isSelected">
+		<div [attr.title]="isSelected ? 'click to close' : 'click to open' ">
+			<span>{{ item.name }} - </span>
+
+			<span [ngClass]="{ emptyStock: item.stock === 0}" >stock: {{ item.stock }}</span>
+			<div class="ar-list-item-opened" *ngIf="isSelected">
+				<div class="emptyStock" *ngIf="item.stock===0">Sadly this item is out of stock</div>
+				<div>{{ item.description }}</div>
+			</div>
+		</div>
+	</ng-template>
+</div>
