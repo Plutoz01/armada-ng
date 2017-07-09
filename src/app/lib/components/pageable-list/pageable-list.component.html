@@ -6,6 +6,7 @@
 			 (click)="click.emit( $event )"
 			 (selectionChanged)=" selectionChanged.emit( $event ) ">
 	</ar-list>
+
 	<div class="bottom-controls">
 		<ar-paginator [actualPage]="actualPage"
 					  [totalPage]="totalPage"
@@ -14,19 +15,17 @@
 					  [pageRangeWidth]="pageRangeWidth"
 					  (pageChanged)="pageChanged.emit( $event )">
 		</ar-paginator>
+
 		<span *ngIf="totalItems !== undefined">
 			Total items: {{ totalItems }}
 		</span>
+
 		<span>
 			<label> Items per page:</label>
 			<select [ngModel]="itemsPerPage"
 					(ngModelChange)="onItemsPerPageChanged( $event )">
-				<option value="10">10</option>
-				<option value="25">25</option>
-				<option value="50">50</option>
+				<option *ngFor="let pageSize of pageSizes" [value]="pageSize">{{pageSize}}</option>
 			</select>
 		</span>
 	</div>
-
-
 </div>

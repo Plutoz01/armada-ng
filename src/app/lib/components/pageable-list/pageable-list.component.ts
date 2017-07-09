@@ -7,6 +7,7 @@ import { PaginatorComponent } from '../paginator/paginator.component';
 	styleUrls: [ './pageable-list.component.scss' ]
 } )
 export class PageableListComponent<T> {
+	static readonly defaultPageSizes = [ 10, 25, 50, 100 ];
 
 	// list related inputs
 	@Input() items: T[];
@@ -24,6 +25,7 @@ export class PageableListComponent<T> {
 	// other inputs
 	@Input() totalItems?: number;
 	@Input() itemsPerPage: number;
+	@Input() pageSizes: number[] = PageableListComponent.defaultPageSizes;
 
 	// list related outputs
 	@Output() click = new EventEmitter<T>();
