@@ -5,17 +5,17 @@ $border-color: #888;
 
 	/deep/ .ar-list {
 		border: 1px $border-color solid;
+		background-color: white;
 
 		.ar-list-item {
 			&:not(:last-child) {
 				border-bottom: 1px $border-color solid;
 			}
 
-			padding: 5px 10px;
 			background-color: white;
+			padding: 5px 10px;
 			box-shadow: 2px 2px 2px $border-color;
 			cursor: pointer;
-
 		}
 
 		.selected {
@@ -29,6 +29,10 @@ $border-color: #888;
 			font-weight: normal;
 			border: 1px solid #ccc;
 			margin: 5px 0;
+		}
+
+		.ar-list-empty-placeholder {
+			color: #888;
 		}
 	}
 

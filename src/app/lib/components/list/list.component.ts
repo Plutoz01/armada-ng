@@ -4,13 +4,16 @@ import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/co
 
 @Component( {
 	selector: 'ar-list',
-	templateUrl: './list.component.html'
+	templateUrl: './list.component.html',
+	styleUrls: [ './list.component.scss' ]
+
 } )
 export class ListComponent<T> {
 	@Input() items: T[];
 	@Input() listItemTemplateRef: TemplateRef< { $implicit: T } >;
 	@Input() selectable = true;
 	@Input() selected: T;
+	@Input() emptyPlaceholder = 'No items to display';
 
 	@Output() click = new EventEmitter<T>();
 	@Output() selectionChanged = new EventEmitter<T>();

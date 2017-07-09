@@ -1,4 +1,6 @@
 <div class="ar-ex-pageable-list">
+	<h3>Pageable list with custom item template and changeable page size</h3>
+
 	<ar-pageable-list [items]="items"
 					  [listItemTemplateRef]="itemTpl"
 					  [totalPage]="totalPages"
@@ -8,7 +10,6 @@
 					  [itemsPerPage]="itemsPerPage"
 					  (itemsPerPageChanged)="onItemsPerPageChanged( $event )"
 					  (pageChanged)="onPageChanged( $event )"
-
 	></ar-pageable-list>
 
 	<ng-template #itemTpl let-item let-isSelected="isSelected">
@@ -22,4 +23,15 @@
 			</div>
 		</div>
 	</ng-template>
+
+
+	<h3>Empty list</h3>
+
+	<ar-pageable-list [items]="[]"
+					  [listItemTemplateRef]="itemTpl"
+					  [totalPage]="0"
+					  [actualPage]="0"
+					  [pageRangeWidth]="3"
+					  [itemsPerPage]="itemsPerPage"
+	></ar-pageable-list>
 </div>

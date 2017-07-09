@@ -10,7 +10,7 @@ export class PaginatorComponent implements OnChanges {
 	static readonly defaultPageRangeWidth = 2;
 
 	@Input() actualPage = 0;
-	@Input() totalPage = 1;
+	@Input() totalPage = 0;
 	@Input() firstAndLastButtonVisible = true;
 	@Input() prevAndNextButtonVisible = true;
 	@Input() pageRangeWidth: number = PaginatorComponent.defaultPageRangeWidth;
@@ -68,11 +68,11 @@ export class PaginatorComponent implements OnChanges {
 	}
 
 	get isLastButtonDisabled(): boolean {
-		return !this.firstAndLastButtonVisible || this.actualPage === this.totalPage - 1;
+		return !this.firstAndLastButtonVisible || this.actualPage >= this.totalPage - 1;
 	}
 
 	get isNextButtonDisabled(): boolean {
-		return !this.prevAndNextButtonVisible || this.actualPage === this.totalPage - 1;
+		return !this.prevAndNextButtonVisible || this.actualPage >= this.totalPage - 1;
 	}
 
 	get pageRange() {
