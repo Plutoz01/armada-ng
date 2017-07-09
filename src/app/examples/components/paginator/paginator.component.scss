@@ -1,0 +1,23 @@
+.ar-ex-paginator {
+	background-color: #fff;
+	border: 1px solid #888;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding: 10px;
+
+	/deep/ .ar-paginator-button {
+		border: 1px solid #aaa;
+		border-radius: 3px;
+		margin: 0 2px;
+
+		&.selected {
+			background-color: #2c81f1;
+			color: #eee;
+		}
+
+		&.disabled {
+			color: #aaa;
+		}
+	}
+}
