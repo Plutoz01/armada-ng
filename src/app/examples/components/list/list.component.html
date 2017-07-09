@@ -1,0 +1,39 @@
+<div class="ar-ex-list">
+	<h3>List with string array items and with DEFAULT template</h3>
+	<ar-list [items]="basicItems"></ar-list>
+
+
+	<h3>List with string array items and with CUSTOM template</h3>
+	<ar-list [items]="basicItems" [listItemTemplateRef]="listItemTemplateForStringArray">
+	</ar-list>
+	<ng-template #listItemTemplateForStringArray let-item>custom template: {{ item }}</ng-template>
+
+	<h3>List with preselected element</h3>
+	<ar-list [items]="basicItems" [selected]="basicItems[1]"></ar-list>
+
+
+	<h3>List with model items</h3>
+	<ar-list [items]="modelItems" [listItemTemplateRef]="listItemTemplateModelArray">
+	</ar-list>
+	<ng-template #listItemTemplateModelArray let-item let-selected="isSelected">
+		<span>{{ item.name }} - </span>
+		<span>({{ item.description }})</span>
+		<span [ngClass]="{ emptyStock: item.stock === 0}" >stock: {{ item.stock }}</span>
+	</ng-template>
+
+
+	<h3>List with selection dependent element ( click on them to open )</h3>
+	<ar-list [items]="modelItems" [listItemTemplateRef]="listItemTemplateModelArray2">
+	</ar-list>
+	<ng-template #listItemTemplateModelArray2 let-item let-isSelected="isSelected">
+		<div [attr.title]="isSelected ? 'click to close' : 'click to open' ">
+			<span>{{ item.name }} - </span>
+
+			<span [ngClass]="{ emptyStock: item.stock === 0}" >stock: {{ item.stock }}</span>
+			<div class="ar-list-item-opened" *ngIf="isSelected">
+				<div class="emptyStock" *ngIf="item.stock===0">Sadly this item is out of stock</div>
+				<div>{{ item.description }}</div>
+			</div>
+		</div>
+	</ng-template>
+</div>

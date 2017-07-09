@@ -1,0 +1,41 @@
+.ar-ex-list {
+	user-select: none;
+
+	/deep/ .ar-list {
+		border: 1px #888 solid;
+
+		.ar-list-item {
+			&:not(:last-child) {
+				border-bottom: 1px #888 solid;
+			}
+
+			padding: 5px 10px;
+			background-color: white;
+			box-shadow: 2px 2px 2px #888;
+			cursor: pointer;
+
+		}
+
+		.selected {
+			font-weight: bold;
+			background: #fffacb;
+		}
+
+		.ar-list-item-opened {
+			padding: 5px 10px;
+			background-color: rgba( 255, 255, 255, 0.7 );
+			font-weight: normal;
+			border: 1px solid #aaa;
+			margin: 5px 0;
+		}
+	}
+
+	.emptyStock {
+		color: #be0000;
+		font-weight: bold;
+	}
+}
+
+
+
+
