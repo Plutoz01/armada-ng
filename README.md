@@ -1,7 +1,8 @@
 # Welcome to armada-ng
 
 A simple depo for various ng components.
-###Note:
+
+### Note:
 This project's primary aim to gain deeper knowledge of component building with Angular.
 
 
