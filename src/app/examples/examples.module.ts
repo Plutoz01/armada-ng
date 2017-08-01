@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { Components } from './components/index';
 import { LibModule } from '../lib/lib.module';
+import { Services } from './services/index';
 
 @NgModule( {
 	imports: [
@@ -14,6 +15,9 @@ import { LibModule } from '../lib/lib.module';
 	],
 	exports: [
 		...Components
+	],
+	providers: [
+		...Services
 	]
 } )
 export class ExamplesModule {

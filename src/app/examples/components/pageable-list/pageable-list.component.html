@@ -1,13 +1,13 @@
 <div class="ar-ex-pageable-list">
 	<h3>Pageable list with custom item template and changeable page size</h3>
 
-	<ar-pageable-list [items]="items"
+	<ar-pageable-list [items]="products$ | async"
 					  [listItemTemplateRef]="itemTpl"
-					  [totalPage]="totalPages"
-					  [totalItems]="allItems.length"
-					  [actualPage]="pageNumber"
+					  [totalPage]="totalPages$ | async"
+					  [totalItems]="productCount$ | async"
+					  [actualPage]="actualPage$ | async"
 					  [pageRangeWidth]="3"
-					  [itemsPerPage]="itemsPerPage"
+					  [itemsPerPage]="pageSize$ | async"
 					  (itemsPerPageChanged)="onItemsPerPageChanged( $event )"
 					  (pageChanged)="onPageChanged( $event )"
 	></ar-pageable-list>
@@ -32,6 +32,6 @@
 					  [totalPage]="0"
 					  [actualPage]="0"
 					  [pageRangeWidth]="3"
-					  [itemsPerPage]="itemsPerPage"
+					  [itemsPerPage]="10"
 	></ar-pageable-list>
 </div>

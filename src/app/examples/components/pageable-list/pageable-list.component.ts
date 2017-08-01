@@ -1,50 +1,42 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
-import { Product } from '../../models/product.interface';
+import { Product } from '../../models/product.class';
+import { ProductService } from '../../services/product.service';
+import { ProductFilter } from '../../models/product-filter.interface';
 
 @Component( {
 	selector: 'ar-ex-pageable-list',
 	templateUrl: './pageable-list.component.html',
 	styleUrls: [ './pageable-list.component.scss' ]
 } )
-export class ExamplePageableListComponent implements OnInit {
+export class ExamplePageableListComponent {
 
-	allItems: Product[] = [];
-	items: Product[] = [];
-	pageNumber = 0;
-	itemsPerPage = 10;
+	products$: Observable<Product[]>;
+	productCount$: Observable<number>;
+	totalPages$: Observable<number>;
+	actualPage$: Observable<number>;
+	pageSize$: Observable<number>;
 
-	ngOnInit() {
-		this.allItems = this.generateItems( _.random( 80, 200 ) );
-		this.items = this.allItems.slice( 0, 10 );
+	constructor( private productService: ProductService ) {
+		this.products$ = productService.items$;
+		this.productCount$ = productService.itemCount$;
+		this.totalPages$ = productService.totalPages$;
+		this.actualPage$ = productService.actualPage$;
+		this.pageSize$ = productService.pageSize$;
+
+		this.productService.setFilter$( <ProductFilter>  { nameContains: '7' } );
+		this.productService.refresh$()
+			.subscribe();
 	}
 
 	onPageChanged( newPage: number ) {
-		const from = newPage * this.itemsPerPage;
-		const to = from + this.itemsPerPage;
-		this.items = this.allItems.slice( from, to );
-		this.pageNumber = newPage;
+		this.productService.goToPage$( newPage ).subscribe();
 	}
 
 	onItemsPerPageChanged( newItemsPerPage: number ) {
-		this.itemsPerPage = newItemsPerPage;
-		const newPageNumber = this.totalPages < this.pageNumber ? this.totalPages - 1 : this.pageNumber;
-		this.onPageChanged( newPageNumber );
-	}
-
-	generateItems( count ): Product[] {
-		return _.range( 0, count ).map( idx => {
-			return <Product> {
-				id: idx,
-				name: 'label ' + idx,
-				description: 'random description ' + idx,
-				stock: _.random( 4 ) ? _.random( 1, 1000 ) : 0
-			}
-		} );
-	}
-
-	get totalPages(): number {
-		return Math.ceil( this.allItems.length / this.itemsPerPage );
+		this.productService.setPageSize( newItemsPerPage );
+		this.productService.refresh$().subscribe();
 	}
 }

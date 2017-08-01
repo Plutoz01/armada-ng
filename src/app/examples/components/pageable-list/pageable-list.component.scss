@@ -49,6 +49,8 @@ $border-color: #888;
 			border-radius: 3px;
 			margin: 0 2px;
 			background-color: #eee;
+			min-width: 24px;
+			text-align: center;
 
 			&.selected {
 				background-color: #2c81f1;

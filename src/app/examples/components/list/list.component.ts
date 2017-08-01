@@ -1,5 +1,5 @@
 import { Component,  } from '@angular/core';
-import { Product } from '../../models/product.interface';
+import { Product } from '../../models/product.class';
 
 @Component( {
 	selector: 'ar-ex-list',
