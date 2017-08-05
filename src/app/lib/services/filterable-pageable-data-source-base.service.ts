@@ -1,5 +1,6 @@
-import { DataSource, Filter, FilterableDataSource, PageableDataSource } from '../models/data-sources';
+import { DataSource,  Filter,  FilterableDataSource} from '../models/data-sources';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { PageableDataSource } from '../models/pageable-data-source';
 
 export abstract class FilterablePageableDataSourceBase<T, F extends Filter>
 	implements DataSource<T>, PageableDataSource<T>, FilterableDataSource<T, F> {

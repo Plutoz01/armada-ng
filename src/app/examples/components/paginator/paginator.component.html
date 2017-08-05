@@ -1,12 +1,12 @@
 <div class="ar-ex-paginator">
 	<h4>With 7 total pages</h4>
-	<ar-paginator [totalPage]="7" ></ar-paginator>
+	<ar-paginator [totalPages]="7" ></ar-paginator>
 
 	<h4>With 7 total pages starts from page 3 and page range width is 1</h4>
-	<ar-paginator [actualPage]="2" [totalPage]="7" [pageRangeWidth]="1" ></ar-paginator>
+	<ar-paginator [actualPage]="2" [totalPages]="7" [pageRangeWidth]="1" ></ar-paginator>
 
 	<h4>With 10 total pages and hidden prev/next and first/last buttons</h4>
-	<ar-paginator [totalPage]="10" [pageRangeWidth]="4"
+	<ar-paginator [totalPages]="10" [pageRangeWidth]="4"
 				  [prevAndNextButtonVisible]="false"
 				  [firstAndLastButtonVisible]="false">
 	</ar-paginator>

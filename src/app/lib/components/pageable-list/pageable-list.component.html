@@ -8,21 +8,21 @@
 
 	<div class="bottom-controls">
 		<ar-paginator [actualPage]="actualPage"
-					  [totalPage]="totalPage"
+					  [totalPages]="totalPages"
 					  [firstAndLastButtonVisible]="firstAndLastButtonVisible"
 					  [prevAndNextButtonVisible]="prevAndNextButtonVisible"
 					  [pageRangeWidth]="pageRangeWidth"
-					  (pageChanged)="pageChanged.emit( $event )">
+					  (pageChange)="pageChange.emit( $event )">
 		</ar-paginator>
 
-		<span *ngIf="totalItems !== undefined">
-			Total items: {{ totalItems }}
+		<span *ngIf="itemsCount !== undefined">
+			Total items: {{ itemsCount }}
 		</span>
 
 		<span>
 			<label> Items per page:</label>
-			<select [ngModel]="itemsPerPage"
-					(ngModelChange)="onItemsPerPageChanged( $event )">
+			<select [ngModel]="pageSize"
+					(ngModelChange)="onPageSizeChange( $event )">
 				<option *ngFor="let pageSize of pageSizes" [value]="pageSize">{{pageSize}}</option>
 			</select>
 		</span>

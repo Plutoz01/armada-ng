@@ -26,17 +26,17 @@ export class ExamplePageableListComponent {
 		this.actualPage$ = productService.actualPage$;
 		this.pageSize$ = productService.pageSize$;
 
-		this.productService.setFilter$( <ProductFilter>  { nameContains: '7' } );
+		// this.productService.setFilter$( <ProductFilter>  { nameContains: '7' } );
 		this.productService.refresh$()
 			.subscribe();
 	}
 
-	onPageChanged( newPage: number ) {
+	onPageChange( newPage: number ) {
 		this.productService.goToPage$( newPage ).subscribe();
 	}
 
-	onItemsPerPageChanged( newItemsPerPage: number ) {
-		this.productService.setPageSize( newItemsPerPage );
+	onPageSizeChange( newPageSize: number ) {
+		this.productService.setPageSize( newPageSize );
 		this.productService.refresh$().subscribe();
 	}
 }

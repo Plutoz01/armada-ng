@@ -7,17 +7,6 @@ export interface DataSource<T> {
 	refresh$(): Observable<T[]>;
 }
 
-export interface PageableDataSource<T> {
-	actualPage$: Observable<number>;
-	totalPages$: Observable<number>;
-	pageSize$: Observable<number>;
-
-	next$(): Observable<T[]>;
-	previous$(): Observable<T[]>;
-	goToPage$( targetPage: number ): Observable<T[]>;
-	setPageSize( targetPageSize: number );
-}
-
 export interface Filter {
 	[ filterKey: string ]: string | number
 }

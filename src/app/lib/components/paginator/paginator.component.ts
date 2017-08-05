@@ -10,12 +10,12 @@ export class PaginatorComponent implements OnChanges {
 	static readonly defaultPageRangeWidth = 2;
 
 	@Input() actualPage = 0;
-	@Input() totalPage = 0;
+	@Input() totalPages = 0;
 	@Input() firstAndLastButtonVisible = true;
 	@Input() prevAndNextButtonVisible = true;
 	@Input() pageRangeWidth: number = PaginatorComponent.defaultPageRangeWidth;
 
-	@Output() pageChanged = new EventEmitter<number>();
+	@Output() pageChange = new EventEmitter<number>();
 
 	ngOnChanges( changes: SimpleChanges ) {
 		const pageRangeWidthChange = changes[ 'pageRangeWidth' ];
@@ -42,7 +42,7 @@ export class PaginatorComponent implements OnChanges {
 		if ( this.isLastButtonDisabled ) {
 			return;
 		}
-		this.setPage( this.totalPage > 0 ? this.totalPage - 1 : 0 );
+		this.setPage( this.totalPages > 0 ? this.totalPages - 1 : 0 );
 	}
 
 	onPrevious() {
@@ -56,7 +56,7 @@ export class PaginatorComponent implements OnChanges {
 		if ( this.isNextButtonDisabled ) {
 			return;
 		}
-		this.setPage( this.actualPage < this.totalPage - 1 ? this.actualPage + 1 : this.totalPage - 1 );
+		this.setPage( this.actualPage < this.totalPages - 1 ? this.actualPage + 1 : this.totalPages - 1 );
 	}
 
 	get isFirstButtonDisabled(): boolean {
@@ -68,11 +68,11 @@ export class PaginatorComponent implements OnChanges {
 	}
 
 	get isLastButtonDisabled(): boolean {
-		return !this.firstAndLastButtonVisible || this.actualPage >= this.totalPage - 1;
+		return !this.firstAndLastButtonVisible || this.actualPage >= this.totalPages - 1;
 	}
 
 	get isNextButtonDisabled(): boolean {
-		return !this.prevAndNextButtonVisible || this.actualPage >= this.totalPage - 1;
+		return !this.prevAndNextButtonVisible || this.actualPage >= this.totalPages - 1;
 	}
 
 	get pageRange() {
@@ -80,7 +80,7 @@ export class PaginatorComponent implements OnChanges {
 		rangeStart = rangeStart < 0 ? 0 : rangeStart;
 
 		let rangeEnd = this.actualPage + this.pageRangeWidth;
-		rangeEnd = rangeEnd > this.totalPage - 1 ? this.totalPage - 1 : rangeEnd;
+		rangeEnd = rangeEnd > this.totalPages - 1 ? this.totalPages - 1 : rangeEnd;
 
 		return _.range( rangeStart, rangeEnd + 1 );
 	}
@@ -90,6 +90,6 @@ export class PaginatorComponent implements OnChanges {
 			return;
 		}
 		this.actualPage = pageNumber;
-		this.pageChanged.emit( this.actualPage );
+		this.pageChange.emit( this.actualPage );
 	}
 }
