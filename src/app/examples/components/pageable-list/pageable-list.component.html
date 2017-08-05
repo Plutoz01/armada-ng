@@ -1,37 +1,39 @@
 <div class="ar-ex-pageable-list">
 	<h3>Pageable list with custom item template and changeable page size</h3>
 
-	<ar-pageable-list [items]="products$ | async"
-					  [listItemTemplateRef]="itemTpl"
+	 <ar-pageable-list [items]="products$ | async"
 					  [totalPage]="totalPages$ | async"
 					  [totalItems]="productCount$ | async"
 					  [actualPage]="actualPage$ | async"
 					  [pageRangeWidth]="3"
 					  [itemsPerPage]="pageSize$ | async"
 					  (itemsPerPageChanged)="onItemsPerPageChanged( $event )"
-					  (pageChanged)="onPageChanged( $event )"
-	></ar-pageable-list>
+					  (pageChanged)="onPageChanged( $event )">
 
-	<ng-template #itemTpl let-item let-isSelected="isSelected">
-		<div [attr.title]="isSelected ? 'click to close' : 'click to open' ">
-			<span>{{ item.name }} - </span>
+		<ng-template let-item let-isSelected="isSelected">
+			<div [attr.title]="isSelected ? 'click to close' : 'click to open' ">
+				<span>{{ item.name }} - </span>
 
-			<span [ngClass]="{ emptyStock: item.stock === 0}" >stock: {{ item.stock }}</span>
-			<div class="ar-list-item-opened" *ngIf="isSelected">
-				<div class="emptyStock" *ngIf="item.stock===0">Sadly this item is out of stock</div>
-				<div>{{ item.description }}</div>
+				<span [ngClass]="{ emptyStock: item.stock === 0}" >stock: {{ item.stock }}</span>
+				<div class="ar-list-item-opened" *ngIf="isSelected">
+					<div class="emptyStock" *ngIf="item.stock===0">Sadly this item is out of stock</div>
+					<div>{{ item.description }}</div>
+				</div>
 			</div>
-		</div>
-	</ng-template>
+		</ng-template>
+	</ar-pageable-list> 
 
-
+	
 	<h3>Empty list</h3>
 
 	<ar-pageable-list [items]="[]"
-					  [listItemTemplateRef]="itemTpl"
 					  [totalPage]="0"
 					  [actualPage]="0"
 					  [pageRangeWidth]="3"
-					  [itemsPerPage]="10"
-	></ar-pageable-list>
+					  [itemsPerPage]="10">
+
+		 <ng-template let-item let-isSelected="isSelected">
+			{{ item.name }}
+		</ng-template> 
+	</ar-pageable-list>
 </div>

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { ListComponent } from '../list/list.component';
 import { PaginatorComponent } from '../paginator/paginator.component';
 
 @Component( {
@@ -6,12 +7,11 @@ import { PaginatorComponent } from '../paginator/paginator.component';
 	templateUrl: './pageable-list.component.html',
 	styleUrls: [ './pageable-list.component.scss' ]
 } )
-export class PageableListComponent<T> {
+export class PageableListComponent<T> implements AfterViewInit {
 	static readonly defaultPageSizes = [ 10, 25, 50, 100 ];
 
 	// list related inputs
 	@Input() items: T[];
-	@Input() listItemTemplateRef: TemplateRef< { $implicit: T } >;
 	@Input() selectable = true;
 	@Input() selected: T;
 
@@ -36,6 +36,13 @@ export class PageableListComponent<T> {
 
 	// other outputs
 	@Output() itemsPerPageChanged = new EventEmitter<number>();
+
+	@ViewChild( ListComponent ) list: ListComponent<T>;
+	@ContentChild( TemplateRef ) itemTemplate: TemplateRef<any>;
+
+	ngAfterViewInit() {
+		this.list.itemTemplate = this.itemTemplate;
+	}
 
 	onItemsPerPageChanged( newItemsPerPage: string ) {
 		this.itemsPerPageChanged.emit( parseInt( newItemsPerPage, 0 ) );
