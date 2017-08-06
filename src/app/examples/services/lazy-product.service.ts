@@ -1,9 +1,11 @@
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import * as _ from 'lodash';
 
 import { Product } from '../models/product.class';
 import { LazyLoadDataProvider } from '../../lib/models/lazy-load-data-provider.interface';
 
+@Injectable()
 export class LazyProductService implements LazyLoadDataProvider<Product> {
 
 	static defaultPageSize = 20;
