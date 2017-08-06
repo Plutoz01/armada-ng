@@ -1,0 +1,73 @@
+@startuml
+interface DataProvider<T> {
+	get items$: Observable<T[]>
+
+	refresh$(): Observable<T[]>
+}
+interface DataConsumer<T> {
+	items: T[]
+}
+class Filter {
+	[ filterKey: string ]: string | number
+}
+interface FilterableDataProvider<T, F extends Filter> {
+	get filter$: Observable<F>
+	+ updateFilter$( filter: F ): Observable<T[]>
+}
+interface PageableDataProvider<T> {	
+	get itemCount$: Observable<number>
+	get actualPage$: Observable<number>
+	get totalPages$: Observable<number>
+	get pageSize$: Observable<number>
+
+	nextPage$(): Observable<T[]>
+	previousPage$(): Observable<T[]>
+	goToPage$( pageNumber: number ): Observable<T[]>
+	setPageSize( pageSize: number )
+}
+interface PageableDataConsumer<T> {
+	itemsCount?: number
+	actualPage: number
+	totalPages?: number
+	pageSize?: number
+
+	pageChange: EventEmitter<number>
+	pageSizeChange?: EventEmitter<number>
+}
+abstract class FilterablePageableDataProviderBase<T, F extends Filter> {
+	+ {static} defaultPageSize: number
+	# {abstract} loadItems$( actualPage: number, pageSize: number, filter: F ): Observable<T[]>
+}
+FilterableDataProvider <|-- FilterablePageableDataProviderBase
+PageableDataProvider <|-- FilterablePageableDataProviderBase
+
+DataProvider <|-- PageableDataProvider
+DataProvider <|-- FilterableDataProvider
+DataConsumer <|-- PageableDataConsumer
+
+FilterableDataProvider <.. Filter
+
+
+class PageableAdapterDirective<T>
+PageableAdapterDirective "provider" <-- PageableDataProvider
+PageableAdapterDirective "consumer" <-- PageableDataConsumer
+
+
+class SearchInputComponent {
+	inputChange: EventEmitter<string>
+}
+
+class PagedSearchFieldComponent<T, F extends Filter> {
+	resultItemTemplateRef: TemplateRef
+}
+class PagedSearchResult<T>{
+	resultItemTemplateRef: TemplateRef
+}
+
+PagedSearchFieldComponent <-- FilterableDataProvider
+PagedSearchFieldComponent "1" o-- SearchInputComponent
+PagedSearchFieldComponent <|-- PagedSearchResult
+PagedSearchResult --|> PageableDataConsumer
+PagedSearchFieldComponent "1" o-- PageableAdapterDirective
+
+@enduml

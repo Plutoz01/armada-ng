@@ -1,0 +1,59 @@
+@startuml
+interface DataProvider<T> {
+	get items$: Observable<T[]>
+
+	refresh$(): Observable<T[]>
+}
+interface DataConsumer<T> {
+	items: T[]
+}
+class Filter {
+	[ filterKey: string ]: string | number
+}
+interface FilterableDataProvider<T, F extends Filter> {
+	get filter$: Observable<F>
+	+ updateFilter$( filter: F ): Observable<T[]>
+}
+interface LazyLoadDataProvider<T> {
+	get hasMore$: Observable<boolean>
+	loadMore$(): Observable<T[]>
+}
+interface LazyLoadDataConsumer {
+	hasMore: boolean
+	loadMore: EventEmitter
+}
+abstract class FilterableLazyLoadDataProviderBase<T, F extends Filter> {
+	+ {static} defaultPageSize: number
+	# {abstract} loadMore$( filter: F ): Observable<T[]>
+}
+FilterableDataProvider <|-- FilterableLazyLoadDataProviderBase
+LazyLoadDataProvider <|-- FilterableLazyLoadDataProviderBase
+
+DataProvider <|-- FilterableDataProvider
+DataProvider <|-- LazyLoadDataProvider
+FilterableDataProvider <.. Filter
+
+DataConsumer <|-- LazyLoadDataConsumer
+
+class LazyLoadAdapterDirective<T>
+LazyLoadAdapterDirective "provider" <-- LazyLoadDataProvider
+LazyLoadAdapterDirective "consumer" <-- LazyLoadDataConsumer
+
+class LazyScrollableSearchFieldComponent<T, F extends Filter> {
+	resultItemTemplateRef: TemplateRef
+}
+class LazyScrollableSearchResult<T> {
+	resultItemTemplateRef: TemplateRef
+}
+class SearchInputComponent {
+	inputChange: EventEmitter<string>
+}
+
+LazyScrollableSearchFieldComponent <-- FilterableDataProvider
+LazyScrollableSearchFieldComponent "1" o-- SearchInputComponent
+LazyScrollableSearchFieldComponent <|-- LazyScrollableSearchResult
+LazyScrollableSearchResult --|> LazyLoadDataConsumer
+LazyScrollableSearchFieldComponent "1" o-- LazyLoadAdapterDirective
+
+
+@enduml

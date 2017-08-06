@@ -1,21 +1,24 @@
-import { DataSource,  Filter,  FilterableDataSource} from '../models/data-sources';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { PageableDataSource } from '../models/pageable-data-source';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { FilterableDataProvider } from '../models/filterable-data-provider.interface';
+import { PageableDataProvider } from '../models/pageable-data-provider.interface';
+import { Filter } from '../models/filter.interface';
 
-export abstract class FilterablePageableDataSourceBase<T, F extends Filter>
-	implements DataSource<T>, PageableDataSource<T>, FilterableDataSource<T, F> {
 
-	static readonly DefaultPageSize = 10;
+export abstract class FilterablePageableDataProviderBase<T, F extends Filter>
+	implements PageableDataProvider<T>, FilterableDataProvider<T, F> {
 
-	protected _itemsSource = new BehaviorSubject<T[]>( [] );
-	protected _itemCountSource = new BehaviorSubject<number>( 0 );
-	private _pageSizeSource = new BehaviorSubject<number>( FilterablePageableDataSourceBase.DefaultPageSize );
-	private _actualPageSource = new BehaviorSubject<number>( 0 );
-	private _totalPages: Observable<number>;
-	private _filterSource = new BehaviorSubject<F>( null );
+	static readonly defaultPageSize = 10;
+
+	protected itemsSource = new BehaviorSubject<T[]>( [] );
+	protected itemCountSource = new BehaviorSubject<number>( 0 );
+	private pageSizeSource = new BehaviorSubject<number>( FilterablePageableDataProviderBase.defaultPageSize );
+	private actualPageSource = new BehaviorSubject<number>( 0 );
+	private totalPages: Observable<number>;
+	private filterSource = new BehaviorSubject<F>( null );
 
 	constructor() {
-		this._totalPages = this._itemCountSource.combineLatest( this._pageSizeSource,
+		this.totalPages = this.itemCountSource.combineLatest( this.pageSizeSource,
 			( itemCount: number, pageSize: number ) => Math.ceil( itemCount / pageSize ) );
 	}
 
@@ -29,7 +32,7 @@ export abstract class FilterablePageableDataSourceBase<T, F extends Filter>
 		).first().flatMap( ( [ actualPage, pageSize, filter ]: [ number, number, F ] ) => {
 			return this.getItems$( actualPage, pageSize, filter );
 		} )
-		.do( ( newItems: T[] ) => this._itemsSource.next( newItems ) );
+		.do( ( newItems: T[] ) => this.itemsSource.next( newItems ) );
 	}
 
 	goToPage$( targetPage: number ): Observable<T[]> {
@@ -44,12 +47,12 @@ export abstract class FilterablePageableDataSourceBase<T, F extends Filter>
 				throw new Error( `Target page is out of valid range ( 0-${ totalPages } ). actual: ${ targetPage }` );
 			}
 
-			this._actualPageSource.next( targetPage );
+			this.actualPageSource.next( targetPage );
 			return this.refresh$();
 		} );
 	}
 
-	next$(): Observable<T[]> {
+	nextPage$(): Observable<T[]> {
 		return Observable.zip(
 			this.actualPage$,
 			this.totalPages$
@@ -58,18 +61,18 @@ export abstract class FilterablePageableDataSourceBase<T, F extends Filter>
 				return this.items$.first();
 			}
 
-			this._actualPageSource.next( actualPage + 1 );
+			this.actualPageSource.next( actualPage + 1 );
 			return this.refresh$();
 		} );
 	}
 
-	previous$(): Observable<T[]> {
+	previousPage$(): Observable<T[]> {
 		return this.actualPage$.first().flatMap( ( actualPage: number ) => {
 			if ( actualPage === 0 ) {
 				return this.items$.first();
 			}
 
-			this._actualPageSource.next( actualPage - 1 );
+			this.actualPageSource.next( actualPage - 1 );
 			return this.refresh$();
 		} );
 	}
@@ -78,36 +81,36 @@ export abstract class FilterablePageableDataSourceBase<T, F extends Filter>
 		if ( targetPageSize <= 0 ) {
 			throw new Error( 'Page size must be greather than 0.' );
 		}
-		this._pageSizeSource.next( targetPageSize );
-		this._actualPageSource.next( 0 );
+		this.pageSizeSource.next( targetPageSize );
+		this.actualPageSource.next( 0 );
 	}
 
-	setFilter$( filter: F ): Observable<T[]> {
-		this._filterSource.next( filter );
+	updateFilter$( filter: F ): Observable<T[]> {
+		this.filterSource.next( filter );
 		return this.refresh$().first();
 	}
 
 	get items$(): Observable<T[]> {
-		return this._itemsSource.asObservable();
+		return this.itemsSource.asObservable();
 	}
 
 	get itemCount$(): Observable<number> {
-		return this._itemCountSource.asObservable();
+		return this.itemCountSource.asObservable();
 	}
 
 	get actualPage$(): Observable<number> {
-		return this._actualPageSource.asObservable();
+		return this.actualPageSource.asObservable();
 	}
 
 	get totalPages$(): Observable<number> {
-		return this._totalPages;
+		return this.totalPages;
 	}
 
 	get pageSize$(): Observable<number> {
-		return this._pageSizeSource.asObservable();
+		return this.pageSizeSource.asObservable();
 	}
 
 	get filter$(): Observable<F> {
-		return this._filterSource.asObservable();
+		return this.filterSource.asObservable();
 	}
 }

@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 
-import { FilterablePageableDataSourceBase } from '../../lib/services/filterable-pageable-data-source-base.service';
+import { FilterablePageableDataProviderBase } from '../../lib/services/filterable-pageable-data-provider-base.service';
 import { Product } from '../models/product.class';
 import { ProductFilter } from '../models/product-filter.interface';
 
 @Injectable()
-export class ProductService extends FilterablePageableDataSourceBase<Product, ProductFilter> {
+export class ProductService extends FilterablePageableDataProviderBase<Product, ProductFilter> {
 
 	private allProducts: Product[];
 
 	constructor() {
 		super();
 		this.allProducts = Product.generate( _.random( 80, 300 ) );
-		this._itemCountSource.next( this.allProducts.length );
+		this.itemCountSource.next( this.allProducts.length );
 	}
 
 	protected getItems$( actualPage: number, pageSize: number, filter: ProductFilter = <ProductFilter>{} ): Observable<Product[]> {

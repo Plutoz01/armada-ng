@@ -1,13 +1,14 @@
 import { Observable } from 'rxjs';
-import { DataSource } from './data-sources';
+import { DataProvider } from './data-provider.interface';
 
-export interface PageableDataSource<T> extends DataSource<T> {
+export interface PageableDataProvider<T> extends DataProvider<T> {
+	itemCount$: Observable<number>;
 	actualPage$: Observable<number>;
 	totalPages$: Observable<number>;
 	pageSize$: Observable<number>;
 
-	next$(): Observable<T[]>;
-	previous$(): Observable<T[]>;
+	nextPage$(): Observable<T[]>;
+	previousPage$(): Observable<T[]>;
 	goToPage$( targetPage: number ): Observable<T[]>;
 	setPageSize( targetPageSize: number );
 }

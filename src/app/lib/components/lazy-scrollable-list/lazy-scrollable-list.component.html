@@ -1,0 +1,7 @@
+<div class="ar-lazy-scrollable-list">
+	<ar-list [items]="items" [scrollHeight]="scrollHeight" (bottomReached)=onBottomReached()>
+			<div class="after-last-item" *ngIf="!autoScroll && hasMore">
+				<button class="load-more" (click)=loadMore.emit()>Load more</button>
+			</div>
+	</ar-list>
+</div>

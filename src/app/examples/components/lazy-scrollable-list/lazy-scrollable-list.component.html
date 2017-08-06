@@ -1,14 +1,11 @@
-<div class="ar-ex-pageable-list">
-	<h3>Pageable list with custom item template and changeable page size</h3>
+<div class="ar-ex-lazy-scrollable-list">
+	<h3>Lazy scrollable list with auto scroll</h3>
 
-	 <ar-pageable-list [items]="products$ | async"
-					  [totalPages]="totalPages$ | async"
-					  [itemsCount]="productCount$ | async"
-					  [actualPage]="actualPage$ | async"
-					  [pageRangeWidth]="3"
-					  [pageSize]="pageSize$ | async"
-					  (pageSizeChange)="onPageSizeChange( $event )"
-					  (pageChange)="onPageChange( $event )">
+	<ar-lazy-scrollable-list
+	[items]="lazyProductService.items$ | async" 
+	[hasMore]="lazyProductService.hasMore$ | async"
+	[scrollHeight]="'250px'" 
+	(loadMore)="onLoadMore()">
 
 		<ng-template let-item let-isSelected="isSelected">
 			<div [attr.title]="isSelected ? 'click to close' : 'click to open' ">
@@ -21,26 +18,17 @@
 				</div>
 			</div>
 		</ng-template>
-	</ar-pageable-list> 
+	</ar-lazy-scrollable-list>
+	<label class="loading-label" *ngIf="isLoading">Loading...</label>
 
-	
-	<h3>Empty list</h3>
+	<h3>Lazy scrollable list with manual load button at end</h3>
 
-	<ar-pageable-list [items]="[]"
-					  [totalPages]="0"
-					  [actualPage]="0"
-					  [pageRangeWidth]="3"
-					  [pageSize]="10">
-
-		 <ng-template let-item let-isSelected="isSelected">
-			{{ item.name }}
-		</ng-template> 
-	</ar-pageable-list>
-
-	<h3>Pageable list with PageableAdapterDirective</h3>
-	<ar-pageable-list arPageableAdapter
-		[pageableDataProvider]="productService"
-		[pageRangeWidth]="3">
+	 <ar-lazy-scrollable-list
+		[items]="lazyProductService.items$ | async" 
+		[hasMore]="lazyProductService.hasMore$ | async"
+		[scrollHeight]="'250px'"
+		[autoScroll]=false
+		(loadMore)="onLoadMore()">
 
 		<ng-template let-item let-isSelected="isSelected">
 			<div [attr.title]="isSelected ? 'click to close' : 'click to open' ">
@@ -53,5 +41,6 @@
 				</div>
 			</div>
 		</ng-template>
-	</ar-pageable-list> 
+	</ar-lazy-scrollable-list>
+	<label class="loading-label" *ngIf="isLoading">Loading...</label>
 </div>

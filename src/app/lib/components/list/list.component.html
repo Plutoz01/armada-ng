@@ -1,7 +1,13 @@
 <div class="ar-list">
-	<div class="ar-list-item" *ngFor="let item of items"(click)="onClick( item )" [ngClass]="{ selected: isSelected( item )}">
-		<ng-template *ngTemplateOutlet="customItemTemplate || defaultTpl; context: { $implicit: item, isSelected: isSelected( item ) }"></ng-template>
+	<div #listItemContainer class="ar-list-item-container" [class.scrollable]="scrollHeight" [ngStyle]="{ 'max-height': scrollHeight }">
+
+		<div class="ar-list-item" *ngFor="let item of items"(click)="onClick( item )" [ngClass]="{ selected: isSelected( item )}">
+			<ng-template *ngTemplateOutlet="customItemTemplate || defaultTpl; context: { $implicit: item, isSelected: isSelected( item ) }"></ng-template>
+		</div>
+
+		<ng-content select=".after-last-item"></ng-content>
 	</div>
+
 	<div class="ar-list-empty-placeholder" *ngIf="items?.length === 0">
 		<i class="fa fa-info-circle" aria-hidden="true"></i>
 		{{ emptyPlaceholder }}

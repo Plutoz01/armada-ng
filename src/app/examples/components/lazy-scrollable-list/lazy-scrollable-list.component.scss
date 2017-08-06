@@ -1,0 +1,66 @@
+$border-color: #888;
+
+.ar-ex-lazy-scrollable-list {
+	user-select: none;
+
+	/deep/ .ar-lazy-scrollable-list {
+		border: 1px $border-color solid;
+		background-color: white;
+		box-shadow: 2px 2px 2px $border-color;
+
+		.no-more-items {
+			display: block;
+			padding: 5px;
+			text-align: center;
+		}
+
+		.ar-list {
+			.emptyStock {
+				color: #be0000;
+				font-weight: bold;
+			}
+
+			.ar-list-item {
+				&:not(:last-child) {
+					border-bottom: 1px $border-color solid;
+				}
+
+				padding: 5px 10px;
+				background-color: white;
+				box-shadow: 2px 2px 2px $border-color;
+				cursor: pointer;
+
+			}
+
+			.selected {
+				font-weight: bold;
+				background: #fffacb;
+			}
+
+			.ar-list-item-opened {
+				padding: 5px 10px;
+				background-color: rgba(255, 255, 255, 0.7);
+				font-weight: normal;
+				border: 1px solid #ccc;
+				margin: 5px 0;
+			}
+
+			.ar-list-empty-placeholder {
+				color: #888;
+			}
+		}
+	}
+
+	.loading-label {
+		color: white;
+		padding: 2px 10px;
+		position: relative;
+		text-align: center;
+		background-color: rgba(80, 80, 80, 0.8);
+		bottom: 20px;
+	}
+}
+
+
+
+

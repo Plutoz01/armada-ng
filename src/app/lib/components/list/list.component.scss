@@ -3,4 +3,12 @@
 		margin: 20px 0;
 		text-align: center;
 	}
+
+	.ar-list-item-container {
+		&.scrollable {
+			overflow: hidden;
+			overflow-y: auto;
+		}
+	}
 }
+

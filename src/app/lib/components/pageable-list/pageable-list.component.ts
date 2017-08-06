@@ -10,7 +10,7 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { PAGEABLE_DATA_CONSUMER_INTERFACE_TOKEN } from '../../tokens/pageable-data-consumer.token';
-import { PageableDataConsumer } from '../../models/pageable-data-consumer';
+import { PageableDataConsumer } from '../../models/pageable-data-consumer.interface';
 import { ListComponent } from '../list/list.component';
 import { PaginatorComponent } from '../paginator/paginator.component';
 

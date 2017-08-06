@@ -1,4 +1,16 @@
-import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Observable, Subject } from 'rxjs/Rx';
+import {
+	AfterViewInit,
+	Component,
+	ContentChild,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnDestroy,
+	Output,
+	TemplateRef,
+	ViewChild,
+} from '@angular/core';
 
 @Component({
 	selector: 'ar-list',
@@ -6,17 +18,41 @@ import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef, View
 	styleUrls: ['./list.component.scss']
 
 })
-export class ListComponent<T> {
+export class ListComponent<T> implements AfterViewInit, OnDestroy {
 
 	@Input() items: T[];
 	@Input() selectable = true;
 	@Input() selected: T;
 	@Input() emptyPlaceholder = 'No items to display';
+	@Input() scrollHeight?: string;
 
 	@Output() click = new EventEmitter<T>();
 	@Output() selectionChanged = new EventEmitter<T>();
+	@Output() bottomReached = new EventEmitter();
 
 	@ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+	@ViewChild( 'listItemContainer' ) listItemContainer: ElementRef;
+
+	private onDestroySource$ = new Subject();
+
+	ngAfterViewInit() {
+		Observable.fromEvent( this.listItemContainer.nativeElement, 'scroll' )
+			.debounceTime(50)
+			.takeUntil( this.onDestroySource$ )
+			.subscribe( () => {
+				const nativeContainer: HTMLElement = this.listItemContainer.nativeElement;
+				const max = nativeContainer.scrollHeight;
+				const actual = nativeContainer.offsetHeight + nativeContainer.scrollTop;
+				if ( actual >= max ) {
+					this.bottomReached.emit();
+				}
+			}  );
+	}
+
+	ngOnDestroy() {
+		this.onDestroySource$.next();
+		this.onDestroySource$.unsubscribe();
+	}
 
 	onClick(item: T) {
 		if (this.selectable) {
