@@ -1,0 +1,10 @@
+<div class="ar-card-header">
+	<button class="collapse-toggle-button"
+			*ngIf="collapsible"
+			[attr.title]=" opened ? 'close card' : 'open card' "
+			(click)="onCollapseToggle()">
+		<i class="fa" aria-hidden="true" [ngClass]="{ 'fa-caret-square-o-down': !opened, 'fa-caret-square-o-up': opened }"></i>
+	</button>
+
+	<ng-content></ng-content>
+</div>

@@ -1,0 +1,13 @@
+.ar-card-header {
+  .collapse-toggle-button {
+	border: none;
+	background: none;
+	padding: 0;
+	color: white;
+	cursor: pointer;
+
+	&:focus {
+	  outline: none;
+	}
+  }
+}

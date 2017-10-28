@@ -1,5 +1,9 @@
 <div class="ar-card">
-	<ng-content select=".ar-card-header"></ng-content>
-	<ng-content select=".ar-card-content"></ng-content>
-	<ng-content select=".ar-card-footer"></ng-content>
+	<ng-content select="ar-card-header"></ng-content>
+
+	<div class="ar-card-content-container" *ngIf="isOpened" [@collapseInOut]="collapsibleAnimationState">
+		<ng-content select="ar-card-content" ></ng-content>
+	</div>
+
+	<ng-content select="ar-card-footer"></ng-content>
 </div>

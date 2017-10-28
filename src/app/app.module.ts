@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LibModule } from './lib/lib.module';
 import { ExamplesModule } from './examples/examples.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule( {
 	declarations: [
@@ -11,6 +12,7 @@ import { ExamplesModule } from './examples/examples.module';
 	],
 	imports: [
 		BrowserModule,
+		BrowserAnimationsModule,
 		LibModule,
 		ExamplesModule
 	],

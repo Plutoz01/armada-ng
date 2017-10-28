@@ -1,26 +1,53 @@
 <div class="ar-ex-card">
 	<h3>Simple card</h3>
 	<ar-card>
-		<div class="ar-card-content">
+		<ar-card-content>
 			<p>Simple card with content</p>
 			<button>Click me</button>
-		</div>
+		</ar-card-content>
 	</ar-card>
-
-
 
 	<h3>Card with custom header and footer</h3>
 	<ar-card>
-		<div class="ar-card-header">
-			<span>custom header</span>
-		</div>
-		<div class="ar-card-content">
+		<ar-card-header>
+			custom header from component
+		</ar-card-header>
+
+		<ar-card-content>
 			<p>Simple card with content</p>
 			<button>Click me</button>
-		</div>
-		<div class="ar-card-footer">
+		</ar-card-content>
+
+		<ar-card-footer>
 			<span>custom footer</span>
-		</div>
+		</ar-card-footer>
 	</ar-card>
 
+	<h3>Collapsible card with custom header and footer</h3>
+	<ar-card>
+		<ar-card-header [collapsible]="true">
+			custom header from component
+		</ar-card-header>
+
+		<ar-card-content>
+			<p>Simple card with content</p>
+			<button>Click me</button>
+		</ar-card-content>
+
+		<ar-card-footer>
+			<span>custom footer</span>
+		</ar-card-footer>
+	</ar-card>
+
+	<h3>Collapsible card with custom header</h3>
+	<ar-card>
+		<ar-card-header [collapsible]="true">
+			custom header from component
+		</ar-card-header>
+
+		<ar-card-content>
+			<p>Simple card with content</p>
+			<button>Click me</button>
+		</ar-card-content>
+	</ar-card>
 </div>
