@@ -42,7 +42,7 @@ describe( 'LazyScrollableListComponent', () => {
 			</ng-template>
 		</ar-lazy-scrollable-list>`
 } )
-export class LazyScrollableListWrapperComponent {
+class LazyScrollableListWrapperComponent {
 	items: [ 'item1', 'item2', 'item3' ];
 	hasMore: false;
 }
