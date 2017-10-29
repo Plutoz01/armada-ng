@@ -1,53 +1,62 @@
 <div class="ar-ex-card">
 	<h3>Simple card</h3>
 	<ar-card>
-		<ar-card-content>
-			<p>Simple card with content</p>
+		<ng-template arNamedTemplate="content">
+			<p>Simple card with content 1</p>
 			<button>Click me</button>
-		</ar-card-content>
+		</ng-template>
 	</ar-card>
 
 	<h3>Card with custom header and footer</h3>
 	<ar-card>
-		<ar-card-header>
+		<ng-template arNamedTemplate="header">
 			custom header from component
-		</ar-card-header>
+		</ng-template>
 
-		<ar-card-content>
-			<p>Simple card with content</p>
+		<ng-template arNamedTemplate="content">
+			<p>Simple card with content 2</p>
 			<button>Click me</button>
-		</ar-card-content>
+		</ng-template>
 
-		<ar-card-footer>
+		<ng-template arNamedTemplate="footer">
 			<span>custom footer</span>
-		</ar-card-footer>
+		</ng-template>
 	</ar-card>
 
 	<h3>Collapsible card with custom header and footer</h3>
-	<ar-card>
-		<ar-card-header [collapsible]="true">
+	<ar-card [collapsible]="true">
+		<ng-template arNamedTemplate="header">
 			custom header from component
-		</ar-card-header>
+		</ng-template>
 
-		<ar-card-content>
-			<p>Simple card with content</p>
+		<ng-template arNamedTemplate="content">
+			<p>Simple card with content 3</p>
 			<button>Click me</button>
-		</ar-card-content>
+		</ng-template>
 
-		<ar-card-footer>
+		<ng-template arNamedTemplate="footer">
 			<span>custom footer</span>
-		</ar-card-footer>
+		</ng-template>
 	</ar-card>
 
-	<h3>Collapsible card with custom header</h3>
-	<ar-card>
-		<ar-card-header [collapsible]="true">
-			custom header from component
-		</ar-card-header>
-
-		<ar-card-content>
-			<p>Simple card with content</p>
+	<h3>Collapsible card withhout header</h3>
+	<ar-card [collapsible]="true">
+		<ng-template arNamedTemplate="content">
+			<p>Simple card with content 4</p>
 			<button>Click me</button>
-		</ar-card-content>
+		</ng-template>
+	</ar-card>
+
+	<h3>Collapsible card with custom header (collapsed by default)</h3>
+	<ar-card [collapsible]="true" [opened]="false">
+		<ng-template arNamedTemplate="header">
+			custom header from component
+		</ng-template>
+
+
+		<ng-template arNamedTemplate="content">
+			<p>Simple card with content 5</p>
+			<button>Click me</button>
+		</ng-template>
 	</ar-card>
 </div>
