@@ -1,6 +1,6 @@
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
-import { Component, ContentChild } from '@angular/core';
-import { CardHeaderComponent } from './header/header.component';
+import { Component, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
+import { NamedTemplateDirective } from '../../directives/named-template/named-template.directive';
 
 @Component( {
 	selector: 'ar-card',
@@ -21,18 +21,47 @@ import { CardHeaderComponent } from './header/header.component';
 	]
 } )
 export class CardComponent {
-	@ContentChild( CardHeaderComponent ) headerComponent: CardHeaderComponent;
+	static readonly headerTemplateName = 'header';
+	static readonly contentTemplateName = 'content';
+	static readonly footerTemplateName = 'footer';
 
-	get isOpened(): boolean {
-		return !!this.headerComponent ? this.headerComponent.opened : true;
+	@Input() collapsible = false;
+	@Input() opened = true;
+	@ContentChildren( NamedTemplateDirective ) namedTemplateDirectives: QueryList<NamedTemplateDirective>;
+
+	get contentTemplate(): TemplateRef<any> | undefined {
+		const contentTemplateDirective = this.namedTemplateDirectives.find(
+			( namedTemplate: NamedTemplateDirective ) => namedTemplate.name === CardComponent.contentTemplateName
+		);
+		return contentTemplateDirective ? contentTemplateDirective.template : undefined;
 	}
 
-	get isCollapsible(): boolean {
-		return !!this.headerComponent ? this.headerComponent.collapsible : false;
+	get headerTemplate(): TemplateRef<any> | undefined {
+		const headerTemplateDirective = this.namedTemplateDirectives.find(
+			( namedTemplate: NamedTemplateDirective ) => namedTemplate.name === CardComponent.headerTemplateName
+		);
+		return headerTemplateDirective ? headerTemplateDirective.template : undefined;
+	}
+
+	get footerTemplate(): TemplateRef<any> | undefined {
+		const footerTemplateDirective = this.namedTemplateDirectives.find(
+			( namedTemplate: NamedTemplateDirective ) => namedTemplate.name === CardComponent.footerTemplateName
+		);
+		return footerTemplateDirective ? footerTemplateDirective.template : undefined;
+	}
+
+	onCollapseToggle() {
+		if ( this.collapsible ) {
+			this.opened = !this.opened;
+		}
+	}
+
+	get isContentVisible(): boolean {
+		return !this.collapsible || this.opened;
 	}
 
 	get collapsibleAnimationState(): 'enabled' | 'disabled' {
-		return this.isCollapsible ? 'enabled' : 'disabled';
+		return this.collapsible ? 'enabled' : 'disabled';
 	}
 
 }

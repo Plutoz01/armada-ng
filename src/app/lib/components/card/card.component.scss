@@ -1,11 +1,25 @@
 .ar-card {
-  /deep/ .ar-card-header,
-  /deep/ .ar-card-content,
-  /deep/ .ar-card-footer {
+  .ar-card-header,
+  .ar-card-content,
+  .ar-card-footer {
 	padding: 0.5em 1em;
   }
 
-  .ar-card-content-container {
+  .ar-card-header {
+	.collapse-toggle-button {
+	  border: none;
+	  background: none;
+	  padding: 0;
+	  color: white;
+	  cursor: pointer;
+
+	  &:focus {
+		outline: none;
+	  }
+	}
+  }
+
+  .ar-card-content {
 	overflow: hidden;
   }
 }
