@@ -9,6 +9,8 @@ export class ExampleModalDialogComponent implements OnInit {
 
 	isDialogVisible = [ false, false ];
 
+	registration = { username: '', email: '', password: '' };
+
 	constructor() {
 	}
 
@@ -21,6 +23,11 @@ export class ExampleModalDialogComponent implements OnInit {
 
 	onCloseDialog( dialogIndex: number ) {
 		this.isDialogVisible[ dialogIndex ] = false;
+	}
+
+	onSubmit() {
+		this.onCloseDialog( 1 );
+		console.log( 'registration model: ', this.registration );
 	}
 
 }

@@ -9,6 +9,11 @@ button {
   user-select: none;
 }
 
+.btn-primary {
+  color: white;
+  background: #2856ac;
+}
+
 .inverse {
   background: #444;
   color: white;
@@ -19,6 +24,24 @@ button {
   justify-content: flex-end;
 
   button {
-	margin: 0 5px;
+	margin: 0 6px;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin: 6px 0;
+
+  label {
+	color: #666;
+	margin: 3px 0;
+	font-size: small;
+  }
+
+  input {
+	padding: 5px;
+	margin: 3px 0;
+	font-size: medium;
   }
 }

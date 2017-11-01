@@ -18,5 +18,39 @@
 	</ar-modal-dialog>
 	<button class="inverse" (click)="onShowDialog( 0 )">Show</button>
 
+
+
 	<h3>Modal dialog with editable content</h3>
+	<ar-modal-dialog [visible]="isDialogVisible[1]" [closable]="true" (closed)="onCloseDialog( 1 )">
+		<ng-template arNamedTemplate="title">
+			<i class="fa fa-question-circle" aria-hidden="true"></i>
+			Modal dialog with custom form
+		</ng-template>
+		<ng-template arNamedTemplate="content">
+			<h3>Registration form</h3>
+			<form #registrationForm="ngForm">
+				<div class="form-group">
+					<label for="username">Username</label>
+					<input type="text" id="username" name="username"[(ngModel)]="registration.username" required>
+				</div>
+
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="text" id="email" name="email"[(ngModel)]="registration.email" required>
+				</div>
+
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password"[(ngModel)]="registration.password" required>
+				</div>
+			</form>
+		</ng-template>
+		<ng-template arNamedTemplate="footer">
+			<div class="dialog-actions">
+				<button class="btn-primary" (click)="onSubmit()">Submit</button>
+				<button (click)="onCloseDialog( 1 )">Cancel</button>
+			</div>
+		</ng-template>
+	</ar-modal-dialog>
+	<button class="inverse" (click)="onShowDialog( 1 )">Show</button>
 </div>
