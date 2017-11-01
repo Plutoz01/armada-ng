@@ -26,9 +26,30 @@
 	  background-color: #444;
 	}
 	.modal-dialog-header {
+	  display: flex;
+	  justify-content: space-between;
 	  padding-top: 5px;
 	  padding-bottom: 5px;
+
+	  .modal-dialog-title {
+		width: 100%;
+	  }
+
+	  .modal-dialog-close {
+		margin-right: 10px;
+
+		i {
+		  cursor: pointer;
+		  transition-duration: 0.2s;
+
+		  &:hover {
+			transform: rotate(90deg);
+		  }
+		}
+	  }
 	}
+
+
 
   }
 }

@@ -1,6 +1,6 @@
 <div class="ar-ex-modal-dialog">
 	<h3>Simple modal dialog</h3>
-	<ar-modal-dialog [visible]="isDialogVisible[0]">
+	<ar-modal-dialog [visible]="isDialogVisible[0]" [closable]="true" (closed)="onCloseDialog( 0 )">
 		<ng-template arNamedTemplate="title">
 			Simple modal dialog
 		</ng-template>

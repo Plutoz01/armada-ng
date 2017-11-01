@@ -1,5 +1,5 @@
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
-import { Component, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
+import { Component, ContentChildren, EventEmitter, Input, Output, QueryList, TemplateRef } from '@angular/core';
 
 import { NamedTemplateDirective } from '../../directives/named-template/named-template.directive';
 
@@ -9,20 +9,20 @@ import { NamedTemplateDirective } from '../../directives/named-template/named-te
 	styleUrls: [ './modal-dialog.component.scss' ],
 	animations: [
 		trigger( 'rollDown', [
-			transition(':enter', [
+			transition( ':enter', [
 				animate( '100ms', keyframes( [
 					style( { transform: 'translateY(-100%)' } ),
 					style( { transform: 'translateY(0)' } )
 				] ) )
-			])
+			] )
 		] ),
 		trigger( 'fadeOut', [
-			transition(':leave', [
+			transition( ':leave', [
 				animate( '200ms', keyframes( [
 					style( { opacity: '1' } ),
 					style( { opacity: '0' } )
 				] ) )
-			])
+			] )
 		] )
 	]
 } )
@@ -32,6 +32,8 @@ export class ModalDialogComponent {
 	static readonly footerTemplateName = 'footer';
 
 	@Input() visible = false;
+	@Input() closable = false;
+	@Output() closed = new EventEmitter();
 
 	@ContentChildren( NamedTemplateDirective ) namedTemplateDirectives: QueryList<NamedTemplateDirective>;
 
@@ -45,6 +47,12 @@ export class ModalDialogComponent {
 
 	get footerTemplate(): TemplateRef<any> | undefined {
 		return this.getTemplateByName( ModalDialogComponent.footerTemplateName );
+	}
+
+	onClose() {
+		if ( this.closable ) {
+			this.closed.emit();
+		}
 	}
 
 	private getTemplateByName( name: string ): TemplateRef<any> | undefined {
