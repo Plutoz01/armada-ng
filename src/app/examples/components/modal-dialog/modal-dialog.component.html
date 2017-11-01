@@ -1,0 +1,21 @@
+<div class="ar-ex-modal-dialog">
+	<h3>Simple modal dialog</h3>
+	<ar-modal-dialog [visible]="isDialogVisible[0]">
+		<ng-template arNamedTemplate="title">
+			Simple modal dialog
+		</ng-template>
+		<ng-template arNamedTemplate="content">
+			Example text of modal content<br>
+			Press one of the action keys or X on the top right corner to close
+		</ng-template>
+		<ng-template arNamedTemplate="footer">
+			<div class="dialog-actions">
+				<button (click)="onCloseDialog( 0 )">Confirm</button>
+				<button (click)="onCloseDialog( 0 )">Cancel</button>
+			</div>
+		</ng-template>
+	</ar-modal-dialog>
+	<button class="inverse" (click)="onShowDialog( 0 )">Show</button>
+
+	<h3>Modal dialog with editable content</h3>
+</div>
