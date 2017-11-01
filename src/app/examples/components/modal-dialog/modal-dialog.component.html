@@ -2,6 +2,7 @@
 	<h3>Simple modal dialog</h3>
 	<ar-modal-dialog [visible]="isDialogVisible[0]" [closable]="true" (closed)="onCloseDialog( 0 )">
 		<ng-template arNamedTemplate="title">
+			<i class="fa fa-question-circle" aria-hidden="true"></i>
 			Simple modal dialog
 		</ng-template>
 		<ng-template arNamedTemplate="content">
