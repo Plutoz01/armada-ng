@@ -30,24 +30,18 @@ export class CardComponent {
 	@ContentChildren( NamedTemplateDirective ) namedTemplateDirectives: QueryList<NamedTemplateDirective>;
 
 	get contentTemplate(): TemplateRef<any> | undefined {
-		const contentTemplateDirective = this.namedTemplateDirectives.find(
-			( namedTemplate: NamedTemplateDirective ) => namedTemplate.name === CardComponent.contentTemplateName
-		);
-		return contentTemplateDirective ? contentTemplateDirective.template : undefined;
+		return this.getTemplateByName( CardComponent.contentTemplateName );
+
 	}
 
 	get headerTemplate(): TemplateRef<any> | undefined {
-		const headerTemplateDirective = this.namedTemplateDirectives.find(
-			( namedTemplate: NamedTemplateDirective ) => namedTemplate.name === CardComponent.headerTemplateName
-		);
-		return headerTemplateDirective ? headerTemplateDirective.template : undefined;
+		return this.getTemplateByName( CardComponent.headerTemplateName );
+
 	}
 
 	get footerTemplate(): TemplateRef<any> | undefined {
-		const footerTemplateDirective = this.namedTemplateDirectives.find(
-			( namedTemplate: NamedTemplateDirective ) => namedTemplate.name === CardComponent.footerTemplateName
-		);
-		return footerTemplateDirective ? footerTemplateDirective.template : undefined;
+		return this.getTemplateByName( CardComponent.footerTemplateName );
+
 	}
 
 	onCollapseToggle() {
@@ -62,6 +56,13 @@ export class CardComponent {
 
 	get collapsibleAnimationState(): 'enabled' | 'disabled' {
 		return this.collapsible ? 'enabled' : 'disabled';
+	}
+
+	private getTemplateByName( name: string ): TemplateRef<any> | undefined {
+		const namedTemplateDirective = this.namedTemplateDirectives.find(
+			( namedTemplate: NamedTemplateDirective ) => namedTemplate.name === name
+		);
+		return namedTemplateDirective ? namedTemplateDirective.template : undefined;
 	}
 
 }
