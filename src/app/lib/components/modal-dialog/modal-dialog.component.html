@@ -1,0 +1,19 @@
+<div class="modal-overlay" @fadeOut *ngIf="visible">
+	<div class="modal-dialog" role="dialog" @rollDown>
+		<div class="modal-dialog-header">
+			<div class="modal-dialog-title">
+				<ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
+			</div>
+			<div class="modal-dialog-close" *ngIf="closable">
+				<i class="fa fa-times" aria-hidden="true" (click)="onClose()"></i>
+			</div>
+		</div>
+		<div class="modal-dialog-content">
+			<ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+		</div>
+
+		<div class="modal-dialog-footer">
+			<ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+		</div>
+	</div>
+</div>

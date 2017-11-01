@@ -1,0 +1,56 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  .modal-dialog {
+	max-width: 500px;
+	margin: 60px auto;
+	border: 1px solid #444;
+	background-color: white;
+	border-radius: 6px;
+
+	.modal-dialog-title,
+	.modal-dialog-footer {
+	  padding: 10px 10px;
+	}
+
+	.modal-dialog-header,
+	.modal-dialog-footer {
+	  color: white;
+	  background-color: #444;
+	}
+
+	.modal-dialog-header {
+	  display: flex;
+	  justify-content: space-between;
+	  padding-top: 5px;
+	  padding-bottom: 5px;
+
+	  .modal-dialog-title {
+		width: 100%;
+	  }
+
+	  .modal-dialog-close {
+		margin-right: 10px;
+
+		i {
+		  cursor: pointer;
+		  transition-duration: 0.2s;
+
+		  &:hover {
+			transform: rotate(90deg);
+		  }
+		}
+	  }
+	}
+
+	.modal-dialog-content {
+	  padding: 15px 10px;
+	}
+  }
+}
