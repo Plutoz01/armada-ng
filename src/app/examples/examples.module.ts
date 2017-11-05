@@ -10,7 +10,7 @@ import { Services } from './services/index';
 	imports: [
 		CommonModule,
 		FormsModule,
-		ArmadaNgModules
+		...ArmadaNgModules
 	],
 	declarations: [
 		...Components

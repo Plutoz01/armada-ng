@@ -9,6 +9,7 @@ import { CardComponent } from './components/card/card.component';
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
+		CoreModule
 	],
 	declarations: [
 		CardComponent
