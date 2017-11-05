@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
+import { Observable } from 'rxjs/Observable';
 
-import { FilterablePageableDataProviderBase } from '../../lib/services/filterable-pageable-data-provider-base.service';
-import { Product } from '../models/product.class';
+import { FilterablePageableDataProviderBase } from '../../lib/core/services/filterable-pageable-data-provider-base.service';
 import { ProductFilter } from '../models/product-filter.interface';
+import { Product } from '../models/product.class';
 
 @Injectable()
 export class ProductService extends FilterablePageableDataProviderBase<Product, ProductFilter> {

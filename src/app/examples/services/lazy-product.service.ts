@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import * as _ from 'lodash';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { LazyLoadDataProvider } from '../../lib/core/models/lazy-load-data-provider.interface';
 
 import { Product } from '../models/product.class';
-import { LazyLoadDataProvider } from '../../lib/models/lazy-load-data-provider.interface';
 
 @Injectable()
 export class LazyProductService implements LazyLoadDataProvider<Product> {
@@ -13,10 +14,18 @@ export class LazyProductService implements LazyLoadDataProvider<Product> {
 	private itemsSource = new BehaviorSubject<Product[]>( [] );
 	private hasMoreSource = new BehaviorSubject<boolean>( true );
 
+	get items$(): Observable<Product[]> {
+		return this.itemsSource.asObservable();
+	}
+
+	get hasMore$(): Observable<boolean> {
+		return this.hasMoreSource.asObservable();
+	}
+
 	loadMore$(): Observable<Product[]> {
 		return this.items$.first()
-		.withLatestFrom( this.hasMore$, ( actualProducts: Product[], hasMore: boolean ) =>
-			hasMore ? actualProducts.concat( this.generate() ) : actualProducts )
+			.withLatestFrom( this.hasMore$, ( actualProducts: Product[], hasMore: boolean ) =>
+				hasMore ? actualProducts.concat( this.generate() ) : actualProducts )
 			.delay( 1000 )
 			.do( ( products: Product[] ) => this.itemsSource.next( products ) )
 			.do( () => {
@@ -31,14 +40,6 @@ export class LazyProductService implements LazyLoadDataProvider<Product> {
 		return Observable.of( this.generate() )
 			.do( ( products: Product[] ) => this.itemsSource.next( products ) )
 			.do( () => this.hasMoreSource.next( true ) );
-	}
-
-	get items$(): Observable<Product[]>{
-		return this.itemsSource.asObservable();
-	}
-
-	get hasMore$(): Observable<boolean> {
-		return this.hasMoreSource.asObservable();
 	}
 
 	private generate(): Product[] {

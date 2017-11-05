@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LibModule } from '../lib/lib.module';
+import { ArmadaNgModules } from '../lib/modules';
 
 import { Components } from './components/index';
 import { Services } from './services/index';
@@ -10,7 +10,7 @@ import { Services } from './services/index';
 	imports: [
 		CommonModule,
 		FormsModule,
-		LibModule
+		...ArmadaNgModules
 	],
 	declarations: [
 		...Components
