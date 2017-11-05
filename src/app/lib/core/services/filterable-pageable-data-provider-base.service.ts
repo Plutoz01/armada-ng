@@ -1,8 +1,8 @@
-import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { Filter } from '../models/filter.interface';
 import { FilterableDataProvider } from '../models/filterable-data-provider.interface';
 import { PageableDataProvider } from '../models/pageable-data-provider.interface';
-import { Filter } from '../models/filter.interface';
 
 
 export abstract class FilterablePageableDataProviderBase<T, F extends Filter>
@@ -22,7 +22,29 @@ export abstract class FilterablePageableDataProviderBase<T, F extends Filter>
 			( itemCount: number, pageSize: number ) => Math.ceil( itemCount / pageSize ) );
 	}
 
-	protected abstract getItems$( actualPage: number, pageSize: number, filter?: F ): Observable<T[]>;
+	get items$(): Observable<T[]> {
+		return this.itemsSource.asObservable();
+	}
+
+	get itemCount$(): Observable<number> {
+		return this.itemCountSource.asObservable();
+	}
+
+	get actualPage$(): Observable<number> {
+		return this.actualPageSource.asObservable();
+	}
+
+	get totalPages$(): Observable<number> {
+		return this.totalPages;
+	}
+
+	get pageSize$(): Observable<number> {
+		return this.pageSizeSource.asObservable();
+	}
+
+	get filter$(): Observable<F> {
+		return this.filterSource.asObservable();
+	}
 
 	refresh$(): Observable<T[]> {
 		return Observable.zip(
@@ -32,7 +54,7 @@ export abstract class FilterablePageableDataProviderBase<T, F extends Filter>
 		).first().flatMap( ( [ actualPage, pageSize, filter ]: [ number, number, F ] ) => {
 			return this.getItems$( actualPage, pageSize, filter );
 		} )
-		.do( ( newItems: T[] ) => this.itemsSource.next( newItems ) );
+			.do( ( newItems: T[] ) => this.itemsSource.next( newItems ) );
 	}
 
 	goToPage$( targetPage: number ): Observable<T[]> {
@@ -90,27 +112,5 @@ export abstract class FilterablePageableDataProviderBase<T, F extends Filter>
 		return this.refresh$().first();
 	}
 
-	get items$(): Observable<T[]> {
-		return this.itemsSource.asObservable();
-	}
-
-	get itemCount$(): Observable<number> {
-		return this.itemCountSource.asObservable();
-	}
-
-	get actualPage$(): Observable<number> {
-		return this.actualPageSource.asObservable();
-	}
-
-	get totalPages$(): Observable<number> {
-		return this.totalPages;
-	}
-
-	get pageSize$(): Observable<number> {
-		return this.pageSizeSource.asObservable();
-	}
-
-	get filter$(): Observable<F> {
-		return this.filterSource.asObservable();
-	}
+	protected abstract getItems$( actualPage: number, pageSize: number, filter?: F ): Observable<T[]>;
 }

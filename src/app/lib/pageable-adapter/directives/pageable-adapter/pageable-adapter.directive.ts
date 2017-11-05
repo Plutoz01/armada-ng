@@ -1,9 +1,9 @@
-import { Directive, HostListener, Inject, Input, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { Directive, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { PageableDataConsumer } from '../../../core/models/pageable-data-consumer.interface';
+import { PageableDataProvider } from '../../../core/models/pageable-data-provider.interface';
 
-import { PAGEABLE_DATA_CONSUMER_INTERFACE_TOKEN } from '../../tokens/pageable-data-consumer.token';
-import { PageableDataProvider } from '../../models/pageable-data-provider.interface';
-import { PageableDataConsumer } from '../../models/pageable-data-consumer.interface';
+import { PAGEABLE_DATA_CONSUMER_INTERFACE_TOKEN } from '../../../core/tokens/pageable-data-consumer.token';
 
 @Directive( {
 	selector: '[arPageableAdapter]'

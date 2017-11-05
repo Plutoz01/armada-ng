@@ -1,4 +1,3 @@
-import { Observable, Subject } from 'rxjs/Rx';
 import {
 	AfterViewInit,
 	Component,
@@ -11,13 +10,14 @@ import {
 	TemplateRef,
 	ViewChild,
 } from '@angular/core';
+import { Observable, Subject } from 'rxjs/Rx';
 
-@Component({
+@Component( {
 	selector: 'ar-list',
 	templateUrl: './list.component.html',
-	styleUrls: ['./list.component.scss']
+	styleUrls: [ './list.component.scss' ]
 
-})
+} )
 export class ListComponent<T> implements AfterViewInit, OnDestroy {
 
 	@Input() items: T[];
@@ -30,14 +30,18 @@ export class ListComponent<T> implements AfterViewInit, OnDestroy {
 	@Output() selectionChanged = new EventEmitter<T>();
 	@Output() bottomReached = new EventEmitter();
 
-	@ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+	@ContentChild( TemplateRef ) itemTemplate: TemplateRef<any>;
 	@ViewChild( 'listItemContainer' ) listItemContainer: ElementRef;
 
 	private onDestroySource$ = new Subject();
 
+	get customItemTemplate(): TemplateRef<any> | null {
+		return this.itemTemplate;
+	}
+
 	ngAfterViewInit() {
 		Observable.fromEvent( this.listItemContainer.nativeElement, 'scroll' )
-			.debounceTime(50)
+			.debounceTime( 50 )
 			.takeUntil( this.onDestroySource$ )
 			.subscribe( () => {
 				const nativeContainer: HTMLElement = this.listItemContainer.nativeElement;
@@ -46,7 +50,7 @@ export class ListComponent<T> implements AfterViewInit, OnDestroy {
 				if ( actual >= max ) {
 					this.bottomReached.emit();
 				}
-			}  );
+			} );
 	}
 
 	ngOnDestroy() {
@@ -54,19 +58,15 @@ export class ListComponent<T> implements AfterViewInit, OnDestroy {
 		this.onDestroySource$.unsubscribe();
 	}
 
-	onClick(item: T) {
-		if (this.selectable) {
+	onClick( item: T ) {
+		if ( this.selectable ) {
 			this.selected = this.selected === item ? null : item;
-			this.selectionChanged.emit(this.selected);
+			this.selectionChanged.emit( this.selected );
 		}
-		this.click.emit(item);
+		this.click.emit( item );
 	}
 
-	isSelected(item: T): boolean {
+	isSelected( item: T ): boolean {
 		return this.selectable ? this.selected === item : false;
-	}
-
-	get customItemTemplate(): TemplateRef<any> | null {
-		return this.itemTemplate;
 	}
 }

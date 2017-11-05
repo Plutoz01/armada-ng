@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { DataProvider } from './data-provider.interface';
 
 export interface PageableDataProvider<T> extends DataProvider<T> {

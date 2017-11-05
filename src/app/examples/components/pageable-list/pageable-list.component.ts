@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import * as _ from 'lodash';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { Product } from '../../models/product.class';
 import { ProductService } from '../../services/product.service';
-import { ProductFilter } from '../../models/product-filter.interface';
 
 @Component( {
 	selector: 'ar-ex-pageable-list',
@@ -26,7 +24,6 @@ export class ExamplePageableListComponent {
 		this.actualPage$ = productService.actualPage$;
 		this.pageSize$ = productService.pageSize$;
 
-		// this.productService.setFilter$( <ProductFilter>  { nameContains: '7' } );
 		this.productService.refresh$()
 			.subscribe();
 	}

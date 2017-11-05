@@ -1,4 +1,4 @@
-import { EventEmitter, InjectionToken } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { DataConsumer } from './data-consumer.interface';
 
 export interface PageableDataConsumer<T> extends DataConsumer<T> {

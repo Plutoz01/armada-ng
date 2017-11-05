@@ -1,8 +1,5 @@
+import { Component } from '@angular/core';
 import { LazyProductService } from '../../services/lazy-product.service';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-
-import { Product } from '../../models/product.class';
 
 @Component( {
 	selector: 'ar-ex-lazy-scrollable-list',

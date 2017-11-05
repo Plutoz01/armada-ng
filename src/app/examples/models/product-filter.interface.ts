@@ -1,4 +1,4 @@
-import { Filter } from '../../lib/models/filter.interface';
+import { Filter } from '../../lib/core/models/filter.interface';
 
 export interface ProductFilter extends Filter {
 	id?: number;

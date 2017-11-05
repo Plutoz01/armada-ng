@@ -1,18 +1,8 @@
-import {
-	AfterViewInit,
-	Component,
-	ContentChild,
-	EventEmitter,
-	forwardRef,
-	Input,
-	Output,
-	TemplateRef,
-	ViewChild,
-} from '@angular/core';
-import { PAGEABLE_DATA_CONSUMER_INTERFACE_TOKEN } from '../../tokens/pageable-data-consumer.token';
-import { PageableDataConsumer } from '../../models/pageable-data-consumer.interface';
-import { ListComponent } from '../list/list.component';
-import { PaginatorComponent } from '../paginator/paginator.component';
+import { AfterViewInit, Component, ContentChild, EventEmitter, forwardRef, Input, Output, TemplateRef, ViewChild, } from '@angular/core';
+import { PageableDataConsumer } from '../../../core/models/pageable-data-consumer.interface';
+import { PAGEABLE_DATA_CONSUMER_INTERFACE_TOKEN } from '../../../core/tokens/pageable-data-consumer.token';
+import { ListComponent } from '../../../list/components/list/list.component';
+import { PaginatorComponent } from '../../../paginator/components/paginator/paginator.component';
 
 @Component( {
 	selector: 'ar-pageable-list',
