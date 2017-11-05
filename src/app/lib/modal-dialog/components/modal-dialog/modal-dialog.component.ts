@@ -1,7 +1,6 @@
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, ContentChildren, EventEmitter, Input, Output, QueryList, TemplateRef } from '@angular/core';
-
-import { NamedTemplateDirective } from '../../directives/named-template/named-template.directive';
+import { NamedTemplateDirective } from '../../../core/directives/named-template/named-template.directive';
 
 @Component( {
 	selector: 'ar-modal-dialog',

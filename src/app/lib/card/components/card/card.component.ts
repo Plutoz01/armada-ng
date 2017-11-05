@@ -1,6 +1,6 @@
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
-import { NamedTemplateDirective } from '../../directives/named-template/named-template.directive';
+import { NamedTemplateDirective } from '../../../core/directives/named-template/named-template.directive';
 
 @Component( {
 	selector: 'ar-card',
