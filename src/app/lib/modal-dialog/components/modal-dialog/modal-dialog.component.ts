@@ -37,15 +37,15 @@ export class ModalDialogComponent {
 	@ContentChildren( NamedTemplateDirective ) namedTemplateDirectives: QueryList<NamedTemplateDirective>;
 
 	get titleTemplate(): TemplateRef<any> | undefined {
-		return this.getTemplateByName( ModalDialogComponent.titleTemplateName );
+		return NamedTemplateDirective.getTemplateByName( this.namedTemplateDirectives, ModalDialogComponent.titleTemplateName );
 	}
 
 	get contentTemplate(): TemplateRef<any> | undefined {
-		return this.getTemplateByName( ModalDialogComponent.contentTemplateName );
+		return NamedTemplateDirective.getTemplateByName( this.namedTemplateDirectives, ModalDialogComponent.contentTemplateName );
 	}
 
 	get footerTemplate(): TemplateRef<any> | undefined {
-		return this.getTemplateByName( ModalDialogComponent.footerTemplateName );
+		return NamedTemplateDirective.getTemplateByName( this.namedTemplateDirectives, ModalDialogComponent.footerTemplateName );
 	}
 
 	onClose() {
@@ -53,13 +53,4 @@ export class ModalDialogComponent {
 			this.closed.emit();
 		}
 	}
-
-	private getTemplateByName( name: string ): TemplateRef<any> | undefined {
-		const namedTemplateDirective = this.namedTemplateDirectives.find(
-			( namedTemplate: NamedTemplateDirective ) => namedTemplate.name === name
-		);
-		return namedTemplateDirective ? namedTemplateDirective.template : undefined;
-	}
-
-
 }
